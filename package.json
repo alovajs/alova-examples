@@ -3,9 +3,17 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev:cs": "npm run dev --workspace condition-search",
+    "dev:esr": "npm run dev --workspace editor-silent-react",
+    "dev:ip": "npm run dev --workspace init-page",
+    "dev:lm": "npm run dev --workspace load-more",
+    "dev:mc": "npm run dev --workspace memory-cache",
+    "dev:page": "npm run dev --workspace pagination",
+    "dev:pre": "npm run dev --workspace prefetch",
+    "dev:sss": "npm run dev --workspace setting-silent-svelte",
+    "dev:sp": "npm run dev --workspace storage-placeholder",
+    "dev:sr": "npm run dev --workspace storage-restore",
+    "dev:sf": "npm run dev --workspace submit-form"
   },
   "workspaces": [
     "packages/*"

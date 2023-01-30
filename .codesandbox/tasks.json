@@ -1,0 +1,57 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "dev:cs": {
+      "name": "dev:cs",
+      "command": "npm run dev:cs"
+    },
+    "dev:esr": {
+      "name": "dev:esr",
+      "command": "npm run dev:esr"
+    },
+    "dev:ip": {
+      "name": "dev:ip",
+      "command": "npm run dev:ip"
+    },
+    "dev:lm": {
+      "name": "dev:lm",
+      "command": "npm run dev:lm"
+    },
+    "dev:mc": {
+      "name": "dev:mc",
+      "command": "npm run dev:mc"
+    },
+    "dev:page": {
+      "name": "dev:page",
+      "command": "npm run dev:page"
+    },
+    "dev:pre": {
+      "name": "dev:pre",
+      "command": "npm run dev:pre"
+    },
+    "dev:sss": {
+      "name": "dev:sss",
+      "command": "npm run dev:sss"
+    },
+    "dev:sp": {
+      "name": "dev:sp",
+      "command": "npm run dev:sp"
+    },
+    "dev:sr": {
+      "name": "dev:sr",
+      "command": "npm run dev:sr"
+    },
+    "dev:sf": {
+      "name": "dev:sf",
+      "command": "npm run dev:sf"
+    }
+  }
+}
