@@ -13,7 +13,8 @@
     "dev:sss": "npm run dev --workspace setting-silent-svelte",
     "dev:sp": "npm run dev --workspace storage-placeholder",
     "dev:sr": "npm run dev --workspace storage-restore",
-    "dev:sf": "npm run dev --workspace submit-form"
+    "dev:sf": "npm run dev --workspace submit-form",
+    "dev:slsm": "npm run dev --workspace simple-list-silent-manage"
   },
   "workspaces": [
     "packages/*"
