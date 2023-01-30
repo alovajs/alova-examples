@@ -1,0 +1,28 @@
+{
+  "name": "setting-silent-svelte",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.0"
+  },
+  "dependencies": {
+    "@alova/scene-svelte": "^1.0.0-beta.25",
+    "@smui/button": "^7.0.0-beta.0",
+    "@smui/circular-progress": "^7.0.0-beta.0",
+    "@smui/list": "^7.0.0-beta.0",
+    "@smui/menu": "^7.0.0-beta.0",
+    "@smui/menu-surface": "^7.0.0-beta.0",
+    "@smui/select": "^7.0.0-beta.0",
+    "@smui/snackbar": "^7.0.0-beta.0",
+    "@smui/switch": "^7.0.0-beta.0",
+    "@smui/textfield": "^7.0.0-beta.0",
+    "svelte": "^3.54.0",
+    "svelte-material-ui": "^7.0.0-beta.0"
+  }
+}

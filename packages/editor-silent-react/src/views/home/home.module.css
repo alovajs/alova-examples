@@ -1,0 +1,16 @@
+.loading {
+  animation: circle-run 2.4s infinite linear;
+}
+@keyframes circle-run {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.empty {
+  margin: 24px 0;
+  text-align: center;
+}
