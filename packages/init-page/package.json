@@ -1,5 +1,5 @@
 {
-  "name": "load-more",
+  "name": "init-page",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,13 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@alova/hooks": "^1.0.0-beta.12",
-    "@vueuse/core": "^9.4.0"
   },
   "devDependencies": {
   },
-  "keywords": [
-    "alova"
-  ],
+  "keywords": [],
   "description": ""
 }
