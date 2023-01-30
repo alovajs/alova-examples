@@ -1,0 +1,27 @@
+{
+  "name": "load-more",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@alova/hooks": "^1.0.0-beta.12",
+    "@alova/mock": "^1.0.4",
+    "@vueuse/core": "^9.4.0",
+    "alova": "^1.4.2",
+    "naive-ui": "^2.33.5",
+    "vue": "^3.2.41"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.2.0",
+    "vite": "^3.2.0"
+  },
+  "keywords": [
+    "alova"
+  ],
+  "description": ""
+}
