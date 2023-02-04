@@ -1,5 +1,5 @@
 {
-  "name": "simple-list-silent-manage",
+  "name": "simple-list-silent-manage-vue",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@alova/mock": "^1.0.8",
-    "@alova/scene-vue": "^1.0.0-beta.22",
+    "@alova/scene-vue": "^1.0.0-beta.28",
     "alova": "^1.5.0-beta.7",
     "naive-ui": "^2.33.5",
     "vue": "^3.2.45",

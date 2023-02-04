@@ -2,8 +2,9 @@ import { createAlova } from "alova";
 import ReactHook from "alova/react";
 import { createAlovaMockAdapter, defineMock } from "@alova/mock";
 import { currentStatus } from "./config";
+import { stringifyVData } from "@alova/scene-react";
 
-interface Note {
+export interface Note {
   id: number;
   content: string;
   updateTime: string;
@@ -41,10 +42,11 @@ const mockData = defineMock({
     await mockNetwork();
     const { id, content } = data as unknown as Note;
     const updateTime = new Date().toISOString();
-    const index = allNotes.findIndex((s) => s.id === id);
+    const foundNote = allNotes.find((s) => s.id.toString() === id?.toString());
     let newId = null;
-    if (index >= 0) {
-      allNotes.splice(index, 1, { id, content, updateTime });
+    if (foundNote) {
+      foundNote.content = content;
+      foundNote.updateTime = updateTime;
     } else {
       const lastId = allNotes[allNotes.length - 1]?.id || 0;
       newId = lastId + 1;
@@ -83,25 +85,26 @@ export const alovaInst = createAlova({
 
 export const queryNotes = () =>
   alovaInst.Get<Note[]>("/note", {
-    name: 'noteList',
     localCache: {
       mode: 'placeholder',
       expire: Infinity
     }
   });
-export const noteDetail = (id: string | number) => alovaInst.Get<Note>(`/note/${id}`, {
+export const noteDetail = (id: string) => alovaInst.Get<Note>(`/note/${id}`, {
   localCache: {
     mode: 'restore',
-    expire: Infinity
+    expire: 100, // 让读取的存储数据短暂缓存，以便下次进来时不匹配缓存
   },
   storage: {
-    get(_, storageConnector) {
+    get(storageConnector) {
       const storageNoteList = storageConnector.get(queryNotes());
       if (storageNoteList) {
-        return storageNoteList.find(noteItem => noteItem.id === Number(id));
+        return storageNoteList.find(noteItem => stringifyVData(noteItem.id).toString() === id);
       }
     },
   }
 });
-export const editNote = (content: string, id?: number) => alovaInst.Post("/note", { content, id });
+export const editNote = (content: string, id?: string) => alovaInst.Post<{ id: number | null }>("/note", { content, id }, {
+  name: id ? ('methodEditNote' + id) : undefined
+});
 export const removeNote = (id: number) => alovaInst.Delete<boolean>("/note", { id });

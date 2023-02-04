@@ -23,12 +23,12 @@
 
 <script setup>
 import { ref, watchEffect } from "vue";
-import { useSQRequest, updateStateEffect, silentQueueMap, stringifyVData, filterSilentMethods } from "@alova/scene-vue";
+import { useSQRequest, stringifyVData, filterSilentMethods } from "@alova/scene-vue";
 import { editTodo, todoDetail } from "../../api.js";
 import { NSpin, NButton, NInput, NTimePicker, NForm, NFormItem } from "naive-ui";
 import { silentConfig } from '../../config';
 import { useRoute, useRouter } from "vue-router";
-import { setCacheData } from "alova";
+import { setCache } from "alova";
 
 const route = useRoute();
 let todoId = Number(route.query.id || 0);
@@ -82,7 +82,7 @@ onSubmitSuccess(({ data, silentMethod }) => {
   };
 
   let matchedMethod = undefined;
-  setCacheData({
+  setCache({
     name: 'todoList',
     filter: (methodItem, index, methods) => {
       if (index === methods.length - 1) {

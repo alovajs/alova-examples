@@ -1,4 +1,4 @@
-import { createAlova, cacheMode } from 'alova';
+import { createAlova } from 'alova';
 import VueHook from 'alova/vue';
 import { createAlovaMockAdapter, defineMock } from '@alova/mock';
 
@@ -22,7 +22,7 @@ export const queryRandom = () =>
   alovaInst.Get('/query-random', {
     // set cache mode to 'STORAGE_PLACEHOLDER', it means using old data to occupy loading status
     localCache: {
-      mode: cacheMode.STORAGE_PLACEHOLDER,
+      mode: 'placeholder',
       expire: 10 * 60 * 60,
     },
   });

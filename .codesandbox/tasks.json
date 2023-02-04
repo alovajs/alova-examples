@@ -53,9 +53,9 @@
       "name": "dev:sf",
       "command": "npm run dev:sf"
     },
-    "dev:slsm": {
-      "name": "dev:slsm",
-      "command": "npm run dev:slsm"
+    "dev:slsmv": {
+      "name": "dev:slsmv",
+      "command": "npm run dev:slsmv"
     }
   }
 }

@@ -1,20 +1,46 @@
-import { useSQRequest } from "@alova/scene-react";
+import { filterSilentMethods, silentQueueMap, stringifyVData, updateStateEffect, useSQRequest } from "@alova/scene-react";
 import { Button, Card, CardActions, CardContent, Typography, Grid, IconButton, CardActionArea } from "@mui/material";
-import { queryNotes, removeNote } from "../../common/api";
+import { editNote, queryNotes, removeNote } from "../../common/api";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import styles from './home.module.css';
-import { invalidateCache } from "alova";
 import { silentConfig } from "../../common/config";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const methodQueryNotes = queryNotes();
+
   // 获取笔记列表请求定义
-  const { data: noteList, loading, send } = useSQRequest(queryNotes, {
-    initialData: []
+  const { data: noteList, loading, send: refreshNoteList, onSuccess } = useSQRequest(() => methodQueryNotes, {
+    initialData: [],
+    force: true
   });
+
+  onSuccess(({ data: noteListRaw }) => {
+    // 步骤3：将未提交的数据手动补充到列表，以便即使数据未提交也能展示最新状态
+    const defaultSmAry = filterSilentMethods();
+    if (defaultSmAry.length <= 0) {
+      return;
+    }
+
+    defaultSmAry.forEach(smItem => {
+      if (!smItem.reviewData) {
+        return;
+      }
+      const { operate, data } = smItem.reviewData;
+      const index = noteListRaw.findIndex(({ id }) => stringifyVData(id) === stringifyVData(data.id));
+      if ((operate === 'edit' || operate === 'remove') && index >= 0) {
+        operate === 'edit' ? noteListRaw.splice(index, 1, data) : noteListRaw.splice(index, 1);
+      } else if (operate === 'add' && index < 0) {
+        // 在重新请求并命中缓存时将会有已添加的未提交项，这些需要过滤
+        noteListRaw.unshift(data);
+      }
+    });
+    updateStateEffect(methodQueryNotes, () => noteListRaw);
+  });
+
 
   // 移除笔记请求定义
   const { loading: removing, onSuccess: onRemoveSuccess, send: removeSend } = useSQRequest(id => removeNote(id), {
@@ -22,19 +48,74 @@ const Home = () => {
     ...silentConfig
   });
   onRemoveSuccess(({
+    silentMethod,
     sendArgs: [removedId]
   }) => {
-    const index = noteList.findIndex(({ id }) => id === removedId);
-    if (index >= 0) {
-      noteList.splice(index, 1);
+    // 步骤1：手动更新列表数据
+    updateStateEffect(methodQueryNotes, noteList => {
+      const index = noteList.findIndex(({ id }) => id === removedId);
+      if (index >= 0) {
+        noteList.splice(index, 1);
+      }
+      return noteList;
+    });
+
+    // 步骤2：将静默数据存入reviewData中，以便在网络恢复刷新后获取断网时，手动补充到最新记录
+    if (silentMethod) {
+      silentMethod.reviewData = {
+        operate: 'remove',
+        data: {
+          id: removedId
+        }
+      };
+      silentMethod.save();
     }
+  });
+
+  // 新建笔记请求定义
+  const { loading: adding, send: createNote, onSuccess: onCreateSuccess } = useSQRequest(() => editNote(''), {
+    ...silentConfig,
+    immediate: false,
+    silentDefaultResponse() {
+      return {
+        id: undefined
+      };
+    },
+  });
+  onCreateSuccess(({ data, silentMethod }) => {
+    const newId = data.id;
+    if (newId === null) {
+      return;
+    }
+
+    const newItem = {
+      id: newId,
+      content: '',
+      updateTime: new Date().toISOString()
+    };
+    // 步骤1：手动更新列表数据
+    updateStateEffect(methodQueryNotes, noteList => {
+      noteList.unshift(newItem);
+      return noteList;
+    });
+
+    // 步骤2：将静默数据存入reviewData中，以便在网络恢复刷新后获取断网时，手动补充到最新记录
+    if (silentMethod) {
+      // 开辟一个新的队列
+      silentMethod.reviewData = {
+        operate: 'add',
+        data: newItem
+      };
+      silentMethod.save();
+    }
+    navigate('/detail?id=' + stringifyVData(newId));
   });
 
 
   const navigate = useNavigate();
-  const noteListViews = noteList.map(({ id, content, updateTime }) => <Grid item key={id}>
+  const noteListViews = noteList.map(({ id, content, updateTime }) => <Grid item key={stringifyVData(id)}>
     <Card>
-      <CardActionArea onClick={() => navigate('/detail?id=' + id)}>
+      <CardActionArea onClick={() => navigate('/detail?id=' + stringifyVData(id))}>
         <CardContent>
           <Typography color="text.secondary" gutterBottom>
             {updateTime}
@@ -57,14 +138,13 @@ const Home = () => {
       <Grid item container spacing={2} direction="row" justifyContent="flex-end">
         <Grid item>
           <Button color="primary" className={loading ? styles.loading : ''} disabled={loading} onClick={() => {
-            invalidateCache('noteList');
-            send();
+            refreshNoteList(true);
           }}>
             <AutorenewIcon />
           </Button>
         </Grid>
         <Grid item>
-          <Button color="primary" variant="contained">
+          <Button disabled={adding} color="primary" variant="contained" onClick={() => createNote()}>
             <AddCircleOutlineIcon />
           </Button>
         </Grid>
