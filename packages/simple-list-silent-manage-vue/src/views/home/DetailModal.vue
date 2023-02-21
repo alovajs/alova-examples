@@ -30,7 +30,7 @@
 
 <script setup>
 import { defineProps, watchEffect, defineEmits, ref } from "vue";
-import { useSQRequest, updateStateEffect, silentQueueMap, stringifyVData, filterSilentMethods } from "@alova/scene-vue";
+import { useSQRequest, updateStateEffect, filterSilentMethods, equals } from "@alova/scene-vue";
 import { editTodo, todoDetail } from "../../api.js";
 import { NSpin, NButton, NModal, NInput, NTimePicker, NForm, NFormItem } from "naive-ui";
 import { silentConfig } from '../../config';
@@ -57,8 +57,7 @@ const { loading, data: detail, error, send } = useSQRequest(
     },
     immediate: false,
     vDataCaptured: () => {
-      const targetSM = filterSilentMethods('edit' + stringifyVData(props.id)).pop();
-      console.log(targetSM);
+      const targetSM = filterSilentMethods('edit' + props.id).pop();
       if (targetSM?.reviewData) {
         return { ...targetSM.reviewData.data };
       }
@@ -92,11 +91,12 @@ onSubmitSuccess(({ data, silentMethod }) => {
 
   if (silentMethod) {
     // 设置名称，以便后续查询
-    silentMethod.entity.setName('edit' + stringifyVData(editingItem.id));
+    silentMethod.entity.setName('edit' + editingItem.id);
     silentMethod.reviewData = {
       operate: props.id ? 'edit' : 'add',
       data: editingItem
     };
+    silentMethod.save();
   }
 
   updateStateEffect({
@@ -104,7 +104,7 @@ onSubmitSuccess(({ data, silentMethod }) => {
     filter: (_, index, methods) => index === methods.length - 1
   }, todoList => {
     if (props.id) {
-      const index = todoList.findIndex(({ id }) => id === props.id);
+      const index = todoList.findIndex(({ id }) => equals(id, props.id));
       if (index >= 0) {
         todoList.splice(index, 1, editingItem);
       }

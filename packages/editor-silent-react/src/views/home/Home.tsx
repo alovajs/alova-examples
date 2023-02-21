@@ -1,4 +1,4 @@
-import { filterSilentMethods, silentQueueMap, stringifyVData, updateStateEffect, useSQRequest } from "@alova/scene-react";
+import { equals, filterSilentMethods, updateStateEffect, useSQRequest } from "@alova/scene-react";
 import { Button, Card, CardActions, CardContent, Typography, Grid, IconButton, CardActionArea } from "@mui/material";
 import { editNote, queryNotes, removeNote } from "../../common/api";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
@@ -30,7 +30,7 @@ const Home = () => {
         return;
       }
       const { operate, data } = smItem.reviewData;
-      const index = noteListRaw.findIndex(({ id }) => stringifyVData(id) === stringifyVData(data.id));
+      const index = noteListRaw.findIndex(({ id }) => equals(id, data.id));
       if ((operate === 'edit' || operate === 'remove') && index >= 0) {
         operate === 'edit' ? noteListRaw.splice(index, 1, data) : noteListRaw.splice(index, 1);
       } else if (operate === 'add' && index < 0) {
@@ -108,14 +108,14 @@ const Home = () => {
       };
       silentMethod.save();
     }
-    navigate('/detail?id=' + stringifyVData(newId));
+    navigate('/detail?id=' + newId);
   });
 
 
   const navigate = useNavigate();
-  const noteListViews = noteList.map(({ id, content, updateTime }) => <Grid item key={stringifyVData(id)}>
+  const noteListViews = noteList.map(({ id, content, updateTime }) => <Grid item key={id.toString()}>
     <Card>
-      <CardActionArea onClick={() => navigate('/detail?id=' + stringifyVData(id))}>
+      <CardActionArea onClick={() => navigate('/detail?id=' + id)}>
         <CardContent>
           <Typography color="text.secondary" gutterBottom>
             {updateTime}

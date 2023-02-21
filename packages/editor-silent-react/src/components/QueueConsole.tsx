@@ -8,8 +8,6 @@ import { Select, MenuItem } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import useWaitingSilentQueue from './useWaitingSilentQueue';
 
-
-
 /**
  * 请求队列组件
  * @returns 请求队列展示视图
@@ -18,7 +16,6 @@ export default function QueueConsole() {
   const { enqueueSnackbar } = useSnackbar();
   const { updateCurrentMode, updateCurrentStatus } = useUpdateHook();
   const defaultWaitingSilentQueue = useWaitingSilentQueue('default');
-  const submitNoteWaitingSilentQueue = useWaitingSilentQueue('submitNote');
 
   // 静默提交，多次重试后失败
   const [silentRequestError, setSilentRequestError] = useState('');
@@ -72,7 +69,7 @@ export default function QueueConsole() {
       </div>
       <div className={styles.console}>
         {
-          [defaultWaitingSilentQueue, submitNoteWaitingSilentQueue].map(({ queue, queueName }) => <div key={queueName} className={styles.queue}>
+          [defaultWaitingSilentQueue].map(({ queue, queueName }) => <div key={queueName} className={styles.queue}>
             <div className={styles.title}>[{queueName}]请求队列</div>
             <div className={styles['queue-wrap']}>
               {

@@ -10,8 +10,8 @@ bootSilentFactory({
 
   // 设置编辑笔记请求等待5000毫秒
   requestWait: silentMethod => {
-    const { type, url, requestBody } = silentMethod.entity;
-    if (type === 'POST' && url === '/note' && (requestBody as any).id) {
+    const { type, url, data } = silentMethod.entity;
+    if (type === 'POST' && url === '/note' && (data as any).id) {
       return 5000;
     }
   }

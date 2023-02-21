@@ -44,7 +44,7 @@ const mockData = defineMock({
   "[POST]/todo": async ({ data }) => {
     await mockNetwork();
     const { id, content, time } = data;
-    const index = allTodos.findIndex((s) => s.id === id);
+    const index = allTodos.findIndex((s) => s.id == id);
     let newId = null;
     if (index >= 0) {
       allTodos.splice(index, 1, { id, content, time });

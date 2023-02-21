@@ -1,7 +1,7 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useLocation } from 'react-router-dom';
-import { getSilentMethod, onSilentSubmitSuccess, stringifyVData, useSQRequest } from '@alova/scene-react';
+import { equals, getSilentMethod, onSilentSubmitSuccess, stringifyVData, useSQRequest } from '@alova/scene-react';
 import { editNote, Note, noteDetail, queryNotes } from '../../common/api';
 import { useCallback, useEffect } from 'react';
 import { silentConfig } from '../../common/config';
@@ -24,7 +24,6 @@ const Detail = () => {
     return onSilentSubmitSuccess(({ vDataResponse }) => {
       if (vDataResponse[currentId]) {
         currentId = vDataResponse[currentId];
-        console.log('当前id为:', currentId, vDataResponse)
         history.replaceState(null, '', '?id=' + currentId);
       }
     });
@@ -56,7 +55,7 @@ const Detail = () => {
         return;
       }
 
-      editingItem = noteList.find(noteItem => stringifyVData(noteItem.id).toString() === currentId.toString());
+      editingItem = noteList.find(noteItem => equals(noteItem.id, currentId));
       if (editingItem) {
         editingItem.content = content;
         editingItem.updateTime = new Date().toISOString();
@@ -70,8 +69,7 @@ const Detail = () => {
         operate: 'edit',
         data: editingItem
       };
-      silentMethod.targetRefMethod = methodNoteList;
-      silentMethod.updateStates = ['data'];
+      silentMethod.setUpdateState(methodNoteList);
       silentMethod.save();
     }
   });

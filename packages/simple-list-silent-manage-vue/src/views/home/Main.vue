@@ -26,7 +26,7 @@
 import { ref, h } from "vue";
 import { queryTodo, removeTodo } from "../../api.js";
 import { currentMode, silentConfig } from '../../config';
-import { dehydrateVData, filterSilentMethods, stringifyVData, useSQRequest } from "@alova/scene-vue";
+import { dehydrateVData, filterSilentMethods, stringifyVData, useSQRequest, equals } from "@alova/scene-vue";
 import DetailModal from "./DetailModal.vue";
 import {
   NButton,
@@ -117,14 +117,14 @@ const {
 
 const refConsole = ref();
 onSuccess(() => {
-  // 补全未提交的数据
+  // 补偿列表数据
   const smAry = filterSilentMethods();
   smAry.forEach(smItem => {
     if (!smItem.reviewData) {
       return;
     }
     const { operate, data } = smItem.reviewData;
-    const index = todos.value.findIndex(({ id }) => stringifyVData(id) === stringifyVData(data.id));
+    const index = todos.value.findIndex(({ id }) => equals(id, data.id));
     if ((operate === 'edit' || operate === 'remove') && index >= 0) {
       operate === 'edit' ? todos.value.splice(index, 1, data) : todos.value.splice(index, 1);
     } else if (operate === 'add' && index < 0) {

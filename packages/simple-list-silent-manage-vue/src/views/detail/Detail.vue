@@ -23,7 +23,7 @@
 
 <script setup>
 import { ref, watchEffect } from "vue";
-import { useSQRequest, stringifyVData, filterSilentMethods } from "@alova/scene-vue";
+import { useSQRequest, stringifyVData, filterSilentMethods, equals } from "@alova/scene-vue";
 import { editTodo, todoDetail } from "../../api.js";
 import { NSpin, NButton, NInput, NTimePicker, NForm, NFormItem } from "naive-ui";
 import { silentConfig } from '../../config';
@@ -31,7 +31,7 @@ import { useRoute, useRouter } from "vue-router";
 import { setCache } from "alova";
 
 const route = useRoute();
-let todoId = Number(route.query.id || 0);
+const todoId = route.query.id;
 const router = useRouter();
 
 // query todo data
@@ -45,8 +45,7 @@ const { loading, data: detail, send, error, onError } = useSQRequest(
     },
     immediate: false,
     vDataCaptured: () => {
-      const targetSM = filterSilentMethods('edit' + stringifyVData(todoId)).pop();
-      console.log(targetSM);
+      const targetSM = filterSilentMethods('edit' + todoId).pop();
       if (targetSM?.reviewData) {
         return { ...targetSM.reviewData.data };
       }
@@ -92,7 +91,7 @@ onSubmitSuccess(({ data, silentMethod }) => {
     }
   }, todoList => {
     if (todoId) {
-      const index = todoList.findIndex(({ id }) => stringifyVData(id) === todoId);
+      const index = todoList.findIndex(({ id }) => equals(id, todoId));
       if (index >= 0) {
         editingItem.id = todoList[index].id;
         todoList.splice(index, 1, editingItem);
@@ -106,13 +105,12 @@ onSubmitSuccess(({ data, silentMethod }) => {
   // 将回写数据保存到silentMethod中，它将会一同持久化
   if (silentMethod) {
     // 设置名称，以便后续查询
-    silentMethod.entity.setName('edit' + stringifyVData(editingItem.id));
+    silentMethod.entity.setName('edit' + editingItem.id);
     silentMethod.reviewData = {
       operate: todoId ? 'edit' : 'add',
       data: editingItem
     };
-    silentMethod.targetRefMethod = matchedMethod;
-    silentMethod.updateStates = ['data'];
+    silentMethod.setUpdateState(matchedMethod);
     silentMethod.save();
   }
   router.back();

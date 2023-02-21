@@ -91,10 +91,6 @@ export const queryNotes = () =>
     }
   });
 export const noteDetail = (id: string) => alovaInst.Get<Note>(`/note/${id}`, {
-  localCache: {
-    mode: 'restore',
-    expire: 100, // 让读取的存储数据短暂缓存，以便下次进来时不匹配缓存
-  },
   storage: {
     get(storageConnector) {
       const storageNoteList = storageConnector.get(queryNotes());
