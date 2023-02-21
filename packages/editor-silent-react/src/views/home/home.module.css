@@ -10,6 +10,11 @@
   }
 }
 
+.previewContent {
+  max-height: 120px;
+  overflow: hidden;
+}
+
 .empty {
   margin: 24px 0;
   text-align: center;

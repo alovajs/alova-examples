@@ -15,7 +15,7 @@ const Home = () => {
   // 获取笔记列表请求定义
   const { data: noteList, loading, send: refreshNoteList, onSuccess } = useSQRequest(() => methodQueryNotes, {
     initialData: [],
-    force: true
+    force: isForce => !!isForce
   });
 
   onSuccess(({ data: noteListRaw }) => {
@@ -120,9 +120,7 @@ const Home = () => {
           <Typography color="text.secondary" gutterBottom>
             {updateTime}
           </Typography>
-          <Typography variant="body1">
-            {content}
-          </Typography>
+          <div className={styles.previewContent} dangerouslySetInnerHTML={{ __html: content }}></div>
         </CardContent>
       </CardActionArea>
       <CardActions>
@@ -135,15 +133,14 @@ const Home = () => {
 
   return (
     <Grid direction="column" container spacing={2}>
-      <Grid item container spacing={2} direction="row" justifyContent="flex-end">
+      <Grid item container spacing={2} direction="row" justifyContent="space-between">
         <Grid item>
-          <Button color="primary" className={loading ? styles.loading : ''} disabled={loading} onClick={() => {
-            refreshNoteList(true);
-          }}>
-            <AutorenewIcon />
-          </Button>
+        <Typography variant="h6">Note List</Typography>
         </Grid>
         <Grid item>
+          <Button color="primary" className={loading ? styles.loading : ''} disabled={loading} onClick={() => refreshNoteList(true)}>
+            <AutorenewIcon />
+          </Button>
           <Button disabled={adding} color="primary" variant="contained" onClick={() => createNote()}>
             <AddCircleOutlineIcon />
           </Button>
