@@ -1,11 +1,10 @@
-import { createAlova, cacheMode } from 'alova';
+import { createAlova } from 'alova';
 import VueHook from 'alova/vue';
 import { createAlovaMockAdapter, defineMock } from '@alova/mock';
 
 // mock data.
 const mockData = defineMock({
   '/query-festivals': () => {
-    console.log('fff');
     return festivals;
   },
 });
@@ -34,7 +33,7 @@ export const queryFestivals = () => {
   return alovaInst.Get('/query-festivals', {
     // set cache mode to 'STORAGE_RESTORE', It is generally used for data that remains unchanged for a certain period of time
     localCache: {
-      mode: cacheMode.STORAGE_RESTORE,
+      mode: 'restore',
       expire: expireDate,
     },
   });

@@ -7,7 +7,7 @@
       <n-tag v-for="num in randomNumbers" :key="num">{{ num }}</n-tag>
     </n-space>
 
-    <n-alert title="Tips" type="info" v-if="!loading">
+    <n-alert title="Tips" type="info">
       <div>
         <span class="link" @click="reloadPage">Reload page</span>
         <span>, you can see the old data instead of 'Loading...'</span>

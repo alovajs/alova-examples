@@ -90,17 +90,8 @@ export const queryNotes = () =>
       expire: Infinity
     }
   });
-export const noteDetail = (id: string) => alovaInst.Get<Note>(`/note/${id}`, {
-  storage: {
-    get(storageConnector) {
-      const storageNoteList = storageConnector.get(queryNotes());
-      if (storageNoteList) {
-        return storageNoteList.find(noteItem => stringifyVData(noteItem.id).toString() === id);
-      }
-    },
-  }
-});
-export const editNote = (content: string, id?: string) => alovaInst.Post<{ id: number | null }>("/note", { content, id }, {
+export const noteDetail = (id: number | string) => alovaInst.Get<Note>(`/note/${id}`);
+export const editNote = (content: string, id?: string | number) => alovaInst.Post<{ id: number | null }>("/note", { content, id }, {
   name: id ? ('methodEditNote' + id) : undefined
 });
 export const removeNote = (id: number) => alovaInst.Delete<boolean>("/note", { id });

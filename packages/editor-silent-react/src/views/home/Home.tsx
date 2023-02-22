@@ -113,7 +113,7 @@ const Home = () => {
 
 
   const navigate = useNavigate();
-  const noteListViews = noteList.map(({ id, content, updateTime }) => <Grid item key={id.toString()}>
+  const noteListViews = noteList.map(({ id, content, updateTime }) => <Grid item key={id + ''}>
     <Card>
       <CardActionArea onClick={() => navigate('/detail?id=' + id)}>
         <CardContent>

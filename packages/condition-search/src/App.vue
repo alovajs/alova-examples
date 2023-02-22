@@ -26,9 +26,8 @@
     />
   </n-input-group>
 
-  <n-spin v-if="loading" size="small" />
   <n-data-table
-    v-else-if="students.length > 0"
+    :loading="loading"
     :style="{ marginTop: '10px' }"
     :columns="[
       {
@@ -59,7 +58,7 @@ const { loading, data: students } = useWatcher(
   [studentName, clsName],
   {
     initialData: [],
-    debounce: 500,
+    debounce: [500],
     immediate: true,
   }
 );

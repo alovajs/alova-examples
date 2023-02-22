@@ -110,7 +110,7 @@
 <script setup>
 import { ref, watchEffect, h } from "vue";
 import { queryStudents, removeStudent } from "./api.js";
-import { usePagination } from "@alova/hooks/vue";
+import { usePagination } from "@alova/scene-vue";
 import Detail from "./Detail.vue";
 import {
   NInputGroup,

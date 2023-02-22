@@ -8,11 +8,17 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@alova/hooks": "^1.0.0-beta.12",
-    "@vueuse/core": "^9.4.0"
-  },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vueuse/core": "^9.4.0",
+    "prettier": "^2.7.1",
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "@alova/mock": "^1.0.9",
+    "alova": "^2.0.0-rc.1",
+    "naive-ui": "2.33.5",
+    "vue": "^3.2.41"
   },
   "keywords": [
     "alova"

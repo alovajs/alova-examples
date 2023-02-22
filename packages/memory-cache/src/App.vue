@@ -1,9 +1,7 @@
 <template>
-  <n-spin v-if="loading" size="small" />
-  <n-h2 v-else>Please click the item below to view detail.</n-h2>
-
+  <n-h2 v-if="!loading">Please click the item below to view detail.</n-h2>
   <n-data-table
-    v-if="students.length > 0"
+    :loading="loading"
     :columns="[
       {
         title: 'Name',
@@ -50,7 +48,6 @@ const { loading, data: students } = useRequest(() => queryStudents(), {
 });
 
 const handleDetailShow = (id) => {
-  console.log(showDetail.value);
   viewingId.value = id;
   showDetail.value = true;
 };

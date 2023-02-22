@@ -1,25 +1,27 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useLocation } from 'react-router-dom';
-import { equals, getSilentMethod, onSilentSubmitSuccess, stringifyVData, useSQRequest } from '@alova/scene-react';
+import { equals, getSilentMethod, isVData, onSilentSubmitSuccess, useSQRequest } from '@alova/scene-react';
 import { editNote, Note, noteDetail, queryNotes } from '../../common/api';
 import { useCallback, useEffect } from 'react';
 import { silentConfig } from '../../common/config';
-import { setCache } from 'alova';
+import { queryCache, setCache } from 'alova';
 import { Box, CircularProgress } from '@mui/material';
 
+const methodNoteList = queryNotes();
 const Detail = () => {
   const { search } = useLocation();
   const urlParams = new URLSearchParams(search);
-  let currentId = urlParams.get('id') || '';
-  const { data: detail, update } = useSQRequest(() => noteDetail(currentId), {
-    behavior: 'static',
-    initialData: {
-      content: ''
-    },
-  });
-
+  let currentId = urlParams.get('id') || 0;
+  currentId = isVData(currentId) || !currentId ? currentId : Number(currentId);
   useEffect(() => {
+    // 每次请求前先设置缓存，达到共享缓存的目的
+    const storageNoteList = queryCache(queryNotes());
+    if (storageNoteList) {
+      const noteItem = storageNoteList.find(noteItem => equals(noteItem.id, currentId));
+      noteItem && setCache(noteDetail(currentId), noteItem);
+    }
+
     // 当新增时，currentId为虚拟数据，通过监听静默提交来更正此id
     return onSilentSubmitSuccess(({ vDataResponse }) => {
       if (vDataResponse[currentId]) {
@@ -28,6 +30,14 @@ const Detail = () => {
       }
     });
   }, []);
+
+  // 请求数据
+  const { data: detail, update } = useSQRequest(() => noteDetail(currentId), {
+    behavior: 'static',
+    initialData: {
+      content: ''
+    },
+  });
 
   // 提交编辑的笔记数据
   const { loading: editing, send: submitNote, onSuccess, onBeforePushQueue } = useSQRequest((content: string) => editNote(content, currentId), {
@@ -48,7 +58,6 @@ const Detail = () => {
     sendArgs: [content]
   }) => {
     let editingItem: Note | undefined = undefined;
-    const methodNoteList = queryNotes();
     // 步骤1：手动更新列表数据
     setCache(methodNoteList, noteList => {
       if (!noteList || !currentId) {

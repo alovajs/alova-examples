@@ -8,7 +8,7 @@
     "dev:ip": "npm run dev --workspace init-page",
     "dev:lm": "npm run dev --workspace load-more",
     "dev:mc": "npm run dev --workspace memory-cache",
-    "dev:page": "npm run dev --workspace pagination",
+    "dev:p": "npm run dev --workspace pagination",
     "dev:pre": "npm run dev --workspace prefetch",
     "dev:sss": "npm run dev --workspace setting-silent-svelte",
     "dev:sp": "npm run dev --workspace storage-placeholder",
@@ -31,8 +31,8 @@
     "vite": "^4.0.4"
   },
   "dependencies": {
-    "@alova/mock": "^1.0.8",
-    "alova": "^1.5.0-beta.12",
+    "@alova/mock": "^1.0.9",
+    "alova": "^2.0.0-rc.1",
     "naive-ui": "2.33.5",
     "vue": "^3.2.41"
   }
