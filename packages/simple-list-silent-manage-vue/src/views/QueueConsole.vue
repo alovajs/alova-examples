@@ -75,7 +75,7 @@ onSilentSubmitError(event => {
 const silentRequestError = ref();
 onSilentSubmitFail(event => {
   silentRequestError.value = event.error;
-  message.error('达到最大重试次数，刷新后再请求');
+  message.error('达到最大重试次数，但你仍然可以正常操作');
 });
 
 defineExpose({

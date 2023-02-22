@@ -1,5 +1,5 @@
 <script>
-import QueueConsole from "./QueueConsole.svelte";
+import QueueConsole from "./lib/QueueConsole.svelte";
 import List, { Item, Meta, Label, Text } from '@smui/list';
 import Switch from '@smui/switch';
 import Menu from '@smui/menu';

@@ -32,7 +32,7 @@ export default function QueueConsole() {
     });
     onSilentSubmitFail(event => {
       setSilentRequestError(event.error);
-      enqueueSnackbar('达到最大重试次数，刷新后再请求', {
+      enqueueSnackbar('达到最大重试次数，但你仍然可以正常操作', {
         variant: 'error'
       });
     });

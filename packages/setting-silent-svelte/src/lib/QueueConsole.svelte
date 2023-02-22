@@ -1,6 +1,6 @@
 <script>
 import { onSilentSubmitError, onSilentSubmitFail, silentQueueMap } from '@alova/scene-svelte';
-import { netWorkStatuses, currentStatus, currentMode } from './config';
+import { netWorkStatuses, currentStatus, currentMode } from '../config';
 import Select, { Option } from '@smui/select';
 import Snackbar, { Label } from '@smui/snackbar';
 
@@ -30,25 +30,33 @@ customDefaultQueue.shift = function() {
 silentQueueMap.default = customDefaultQueue;
 
 let snackbar;
-let errorSnackbar;
-let errorContent = '';
 currentStatus.subscribe(val => {
   if (val !== 1 && snackbar) {
     snackbar.open();
   }
 });
+
+let errorSnackbar;
+let errorContent = '';
+const openErrorSnackbar = () => {
+  if (errorSnackbar.isOpen()) {
+    errorSnackbar.close();
+  }
+  errorSnackbar.open();
+}
+
 onSilentSubmitError(event => {
   console.error(event.error);
   errorContent = `请求错误:${event.error}` + (event.retryDelay ? `，${event.retryDelay / 1000}秒后再次发起请求` : '');
-  errorSnackbar.open();
+  openErrorSnackbar();
 });
 
 // 静默提交，多次重试后失败
 let silentRequestError = undefined;
 onSilentSubmitFail(event => {
   silentRequestError = event.error;
-  errorContent = '达到最大重试次数，刷新后再请求';
-  errorSnackbar.open();
+  errorContent = '达到最大重试次数，但你仍然可以正常操作';
+  openErrorSnackbar();
 });
 </script>
 
