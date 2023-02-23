@@ -24,16 +24,5 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/alovajs/alova-examples.git"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "prettier": "^2.7.1",
-    "vite": "^4.0.4"
-  },
-  "dependencies": {
-    "@alova/mock": "^1.0.9",
-    "alova": "^2.0.0-rc.1",
-    "naive-ui": "2.33.5",
-    "vue": "^3.2.41"
   }
 }
