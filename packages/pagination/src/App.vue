@@ -97,7 +97,10 @@
       :data="students"
     >
     </n-data-table>
-    <n-pagination v-model:page="page" :page-count="pageCount" />
+    <n-space justify="space-between" align="center">
+      <n-pagination v-model:page="page" :page-count="pageCount" />
+      <span>Total: {{ total }}</span>
+    </n-space>
   </n-space>
 
   <detail
@@ -132,6 +135,7 @@ const {
   data: students,
   isLastPage,
   page,
+  total,
   pageSize,
   pageCount,
   remove,
@@ -163,7 +167,9 @@ const { send: removeSend, onSuccess: onRemoveSuccess } = useRequest(
     silent: true,
   }
 );
-onRemoveSuccess((_, removeId) => {
+onRemoveSuccess(({
+  sendArgs: [removeId]
+}) => {
   const index = students.value.findIndex((s) => s.id === removeId);
   remove(index);
 });

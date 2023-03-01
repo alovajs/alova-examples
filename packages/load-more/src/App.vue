@@ -158,7 +158,9 @@ const { send: removeSend, onSuccess: onRemoveSuccess } = useRequest(
     silent: true,
   }
 );
-onRemoveSuccess((_, removeId) => {
+onRemoveSuccess(({
+  sendArgs: [removeId]
+}) => {
   const index = students.value.findIndex((s) => s.id === removeId);
   remove(index);
 });
