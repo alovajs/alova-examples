@@ -45,7 +45,7 @@
 
     <n-data-table
       style="margin-top: 80px"
-      v-if="students.length > 0"
+      :loading="loading"
       :columns="[
         {
           title: 'ID',

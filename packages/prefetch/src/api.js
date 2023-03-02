@@ -12,7 +12,7 @@ const mockData = defineMock({
 const alovaInst = createAlova({
   baseURL: 'http://example.com',
   statesHook: VueHook,
-  requestAdapter: createAlovaMockAdapter([mockData], { delay: 300 }),
+  requestAdapter: createAlovaMockAdapter([mockData], { delay: 1000 }),
   responsed: async (response, context) => {
     const res = await response.json();
     const consoleDiv = document.querySelector('#request-console div');
