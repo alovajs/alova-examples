@@ -1,8 +1,8 @@
 import { createAlova } from "alova";
+import GlobalFetch from 'alova/GlobalFetch';
 import ReactHook from "alova/react";
 import { createAlovaMockAdapter, defineMock } from "@alova/mock";
 import { currentStatus } from "./config";
-import { stringifyVData } from "@alova/scene-react";
 
 export interface Note {
   id: number;
@@ -64,10 +64,17 @@ const mockData = defineMock({
   }
 });
 
+const mockRequestAdapter = createAlovaMockAdapter([mockData], {
+  delay: 1200,
+  httpAdapter: GlobalFetch(),
+  onMockResponse(response) {
+    return response.body;
+  },
+});
 export const alovaInst = createAlova({
   baseURL: "http://example.com",
   statesHook: ReactHook,
-  requestAdapter: createAlovaMockAdapter([mockData], { delay: 1200 }),
+  requestAdapter: mockRequestAdapter,
   storageAdapter: {
     get(key) {
       const data = sessionStorage.getItem(key)
@@ -80,7 +87,7 @@ export const alovaInst = createAlova({
       sessionStorage.removeItem(key);
     }
   },
-  responsed: (response: Response) => response.json()
+  responsed: (response) => response.json()
 });
 
 export const queryNotes = () =>
