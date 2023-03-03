@@ -14,7 +14,7 @@
     "vite": "^4.0.4"
   },
   "dependencies": {
-    "@alova/mock": "^1.0.9",
+    "@alova/mock": "^1.1.1",
     "@alova/scene-vue": "^1.0.1",
     "alova": "^2.0.4",
     "naive-ui": "2.33.5",

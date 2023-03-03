@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@alova/mock": "^1.0.9",
+    "@alova/mock": "^1.1.1",
     "@alova/scene-react": "^1.0.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

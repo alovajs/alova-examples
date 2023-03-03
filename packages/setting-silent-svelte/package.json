@@ -15,7 +15,7 @@
     "vite": "^4.0.4"
   },
   "dependencies": {
-    "@alova/mock": "^1.0.9",
+    "@alova/mock": "^1.1.1",
     "@alova/scene-svelte": "^1.0.1",
     "@smui/button": "^7.0.0-beta.0",
     "@smui/circular-progress": "^7.0.0-beta.0",
