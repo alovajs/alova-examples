@@ -12,19 +12,19 @@ const mockData = defineMock({
 const alovaInst = createAlova({
   baseURL: 'http://example.com',
   statesHook: VueHook,
-  requestAdapter: createAlovaMockAdapter([mockData], { delay: 1000 }),
-  responsed: async (response, context) => {
-    const res = await response.json();
-    const consoleDiv = document.querySelector('#request-console div');
-
-    const elDiv = document.createElement('div');
-    elDiv.appendChild(
-      document.createTextNode(new Date().toLocaleString() + ' ' + context.url)
-    );
-    consoleDiv.appendChild(elDiv);
-    elDiv.scrollIntoView(false);
-    return res;
-  },
+  requestAdapter: createAlovaMockAdapter([mockData], {
+    delay: 1000,
+    mockRequestLogger({ url }) {
+      const consoleDiv = document.querySelector('#request-console div');
+      const elDiv = document.createElement('div');
+      elDiv.appendChild(
+        document.createTextNode(new Date().toLocaleString() + ' ' + url)
+      );
+      consoleDiv.appendChild(elDiv);
+      elDiv.scrollIntoView(false);
+    }
+  }),
+  responsed: response => response.json()
 });
 
 export const queryStudents = (studentName, clsName) =>

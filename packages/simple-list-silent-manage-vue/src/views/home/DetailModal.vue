@@ -48,7 +48,7 @@ const emit = defineEmits(["update:show"]);
 
 // query todo data
 const { loading, data: detail, error, send } = useSQRequest(
-  id => todoDetail(id),
+  todoDetail,
   {
     behavior: 'static',
     initialData: {

@@ -25,7 +25,7 @@ const mockNetwork = async () => {
 
 // mock data.
 const mockData = defineMock({
-  "/query-todo": async ({ query }) => {
+  "/query-todo": ({ query }) => {
     let { keyword = '' } = query;
     return allTodos
     .filter(
@@ -49,7 +49,7 @@ const mockData = defineMock({
     if (index >= 0) {
       allTodos.splice(index, 1, { id, content, time });
     } else {
-      const lastId = allTodos[allTodos.length - 1]?.id || 0;
+      const lastId = Number(allTodos[allTodos.length - 1]?.id || 0);
       newId = lastId + 1;
       allTodos.push({ id: newId, content, time });
     }
@@ -89,7 +89,7 @@ export const queryTodo = keyword =>
     name: 'todoList',
     params: { keyword }
   });
-export const todoDetail = (id) => alovaInst.Get(`/todo/${id}`);
+export const todoDetail = (id) => alovaInst.Get(`/todo/` + id);
 export const editTodo = (content, time, id) =>
   alovaInst.Post("/todo", {
     id,

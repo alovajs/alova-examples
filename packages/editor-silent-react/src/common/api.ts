@@ -66,10 +66,7 @@ const mockData = defineMock({
 
 const mockRequestAdapter = createAlovaMockAdapter([mockData], {
   delay: 1200,
-  httpAdapter: GlobalFetch(),
-  onMockResponse(response) {
-    return response.body;
-  },
+  httpAdapter: GlobalFetch()
 });
 export const alovaInst = createAlova({
   baseURL: "http://example.com",
