@@ -154,8 +154,7 @@ const editItem = (id) => {
 const { send: removeSend, onSuccess: onRemoveSuccess } = useRequest(
   (id) => removeStudent(id),
   {
-    immediate: false,
-    silent: true,
+    immediate: false
   }
 );
 onRemoveSuccess(({
