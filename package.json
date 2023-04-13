@@ -1,7 +1,7 @@
 {
   "name": "alova-examples",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev:cs": "npm run dev --workspace condition-search",
     "dev:esr": "npm run dev --workspace editor-silent-react",
@@ -14,7 +14,8 @@
     "dev:sp": "npm run dev --workspace storage-placeholder",
     "dev:sr": "npm run dev --workspace storage-restore",
     "dev:sf": "npm run dev --workspace submit-form",
-    "dev:slsmv": "npm run dev --workspace simple-list-silent-manage-vue"
+    "dev:slsmv": "npm run dev --workspace simple-list-silent-manage-vue",
+    "dev:ic": "npm run dev --workspace indexeddb-cache"
   },
   "workspaces": [
     "packages/*"
