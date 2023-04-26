@@ -142,6 +142,7 @@ const {
     watchingStates: [studentName, clsName],
     append: true,
     initialData: [],
+    data: r => r,
     debounce: [500],
   }
 );
