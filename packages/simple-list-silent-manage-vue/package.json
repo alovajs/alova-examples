@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@alova/mock": "^1.2.2",
+    "@alova/mock": "^1.3.0",
     "@alova/scene-vue": "^1.0.3",
     "alova": "^2.2.0",
     "naive-ui": "^2.33.5",
