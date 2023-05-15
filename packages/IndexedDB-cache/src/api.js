@@ -37,6 +37,7 @@ const alovaInst = createAlova({
 export const image = fileName => alovaInst.Get(`/image/${fileName}`, {
   async localCache() {
     const cache = await getImageFromCache(fileName);
+    console.log(cache);
     return cache && cache.data;
   },
   async transformData(imgBlob) {

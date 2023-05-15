@@ -25,5 +25,8 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/alovajs/alova-examples.git"
+  },
+  "dependencies": {
+    "@alova/mock": "^1.4.1"
   }
 }

@@ -55,7 +55,7 @@ export const alovaInst = createAlova({
   responsed: (response) => response.json()
 });
 
-export const getSettings = () => alovaInst.Get("/settings", {
+export const getSettings = () => alovaInst.Get('/settings', {
   localCache: {
     mode: 'placeholder',
     expire: Infinity

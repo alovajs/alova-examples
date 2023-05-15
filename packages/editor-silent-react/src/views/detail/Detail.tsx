@@ -15,13 +15,6 @@ const Detail = () => {
   let currentId = urlParams.get('id') || 0;
   currentId = isVData(currentId) || !currentId ? currentId : Number(currentId);
   useEffect(() => {
-    // 每次请求前先设置缓存，达到共享缓存的目的
-    const storageNoteList = queryCache(queryNotes());
-    if (storageNoteList) {
-      const noteItem = storageNoteList.find(noteItem => equals(noteItem.id, currentId));
-      noteItem && setCache(noteDetail(currentId), noteItem);
-    }
-
     // 当新增时，currentId为虚拟数据，通过监听静默提交来更正此id
     return onSilentSubmitSuccess(({ vDataResponse }) => {
       if (vDataResponse[currentId]) {

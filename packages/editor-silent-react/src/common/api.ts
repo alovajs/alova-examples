@@ -1,8 +1,9 @@
-import { createAlova } from "alova";
+import { createAlova, queryCache } from "alova";
 import GlobalFetch from 'alova/GlobalFetch';
 import ReactHook from "alova/react";
 import { createAlovaMockAdapter, defineMock } from "@alova/mock";
 import { currentStatus } from "./config";
+import { equals } from "@alova/scene-react";
 
 export interface Note {
   id: number;
@@ -94,7 +95,15 @@ export const queryNotes = () =>
       expire: Infinity
     }
   });
-export const noteDetail = (id: number | string) => alovaInst.Get<Note>(`/note/${id}`);
+export const noteDetail = (id: number | string) => alovaInst.Get<Note>(`/note/${id}`, {
+  localCache: () => {
+    // 自定义获取缓存，有则返回否则不返回
+    const storageNoteList = queryCache(queryNotes());
+    if (storageNoteList) {
+      return storageNoteList.find(noteItem => equals(noteItem.id, id));
+    }
+  }
+});
 export const editNote = (content: string, id?: string | number) => alovaInst.Post<{ id: number | null }>("/note", { content, id }, {
   name: id ? ('methodEditNote' + id) : undefined
 });
