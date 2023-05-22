@@ -11,14 +11,14 @@
     </n-space>
     <n-alert type="info" v-if="!loading">
       <div>
-        <span class="link" @click="reloadPage">Reload page</span>
+        <n-button quaternary type="primary" @click="reloadPage">Reload page</n-button>
         <span
           >, you don't need to rerequest festival data until next year.</span
         >
       </div>
       <div>
-        <span class="link" @click="invalidateOldData"
-          >Invalidate the persitent data</span
+        <n-button quaternary type="primary" @click="invalidateOldData"
+          >Invalidate the persitent data</n-button
         >
         <span> and reload page, you can see 'Loading...' again.</span>
       </div>
@@ -35,7 +35,7 @@
 import { ref } from 'vue';
 import { queryFestivals } from './api.js';
 import { useRequest, invalidateCache } from 'alova';
-import { NSpin, NTag, NAlert, NSpace, NH2 } from 'naive-ui';
+import { NSpin, NTag, NAlert, NSpace, NH2, NButton } from 'naive-ui';
 
 const methodOfQueryFestivals = queryFestivals();
 const {
