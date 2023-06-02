@@ -1,7 +1,6 @@
 import { createAlova } from "alova";
 import VueHook from "alova/vue";
 import { createAlovaMockAdapter, defineMock } from "@alova/mock";
-import { ref } from "vue";
 import { currentStatus } from "./config";
 
 const storageKey = 'aloval.silent.mock.todos';

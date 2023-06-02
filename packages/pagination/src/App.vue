@@ -111,7 +111,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect, h } from "vue";
+import { ref, h } from "vue";
 import { queryStudents, removeStudent } from "./api.js";
 import { usePagination } from "@alova/scene-vue";
 import Detail from "./Detail.vue";
@@ -148,7 +148,7 @@ const {
   {
     watchingStates: [studentName, clsName],
     initialPageSize: 5,
-    initialData: [],
+    initialData: { total: 0, list: [] },
     debounce: [800],
     total: (res) => res.total,
     data: (res) => res.list,

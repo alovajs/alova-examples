@@ -15,7 +15,10 @@
     "dev:sr": "npm run dev --workspace storage-restore",
     "dev:sf": "npm run dev --workspace submit-form",
     "dev:slsmv": "npm run dev --workspace simple-list-silent-manage-vue",
-    "dev:ic": "npm run dev --workspace indexeddb-cache"
+    "dev:ic": "npm run dev --workspace indexeddb-cache",
+    "dev:rh": "npm run dev --workspace retriable-hook",
+    "dev:fh": "npm run dev --workspace form-hook",
+    "dev:adm": "npm run dev --workspace action-delegation-middleware"
   },
   "workspaces": [
     "packages/*"
@@ -27,6 +30,6 @@
     "url": "git://github.com/alovajs/alova-examples.git"
   },
   "dependencies": {
-    "@alova/mock": "^1.4.1"
+    "@mui/lab": "^5.0.0-alpha.131"
   }
 }
