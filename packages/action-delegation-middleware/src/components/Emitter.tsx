@@ -1,7 +1,9 @@
 import { accessAction } from "@alova/scene-react";
 import { Button, Paper, TextField, Typography } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
-import { useCallback, useState } from "react";
+import { useRequest } from "alova";
+import { useCallback, useRef, useState } from "react";
+import { removeStudent } from "../api";
 
 const wrapperStyle = {
   padding: '20px'
@@ -11,10 +13,30 @@ function Child2() {
   const [suffix, setSuffix] = useState('');
   const handleRefreshSideMenu = useCallback(() => {
     accessAction('sideMenu', ({ send }) => send(suffix));
-  }, ['suffix']);
+  }, [suffix]);
+
+  const { loading: removing, send: removeSend } = useRequest(removeStudent, {
+    immediate: false
+  });
+
+  // const { loading: refreshing, send: refreshSend } = useRequest(removeStudent, {
+  //   immediate: false
+  // });
+
   const handleRemoveItem = useCallback(() => {
-    accessAction('dataTable', ({ remove }) => {
-      remove(1);
+    accessAction('dataTable', async ({ remove, getState }) => {
+      await removeSend(getState('data')[0].id);
+      remove(0);
+    });
+  }, []);
+  const handleRefresh = useCallback(() => {
+    accessAction('dataTable', async ({ refresh, getState }) => {
+      refresh(getState('page'));
+    });
+  }, []);
+  const handleReload = useCallback(() => {
+    accessAction('dataTable', async ({ reload }) => {
+      reload();
     });
   }, []);
 
@@ -39,7 +61,13 @@ function Child2() {
         </Grid>
 
         <Grid xs={2}>
-          <Button variant="outlined" onClick={handleRemoveItem}>移除一条表格数据</Button>
+          <Button variant="outlined" onClick={handleRemoveItem} disabled={removing}>移除一条表格数据</Button>
+        </Grid>
+        <Grid xs={2}>
+          <Button variant="outlined" onClick={handleRefresh}>刷新表格当前页</Button>
+        </Grid>
+        <Grid xs={2}>
+          <Button variant="outlined" onClick={handleReload}>重载表格</Button>
         </Grid>
       </Grid>
     </Paper>
