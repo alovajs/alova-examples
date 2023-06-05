@@ -90,8 +90,8 @@ const submitStudent = async () => {
   }
   const newId = await sendStudentAdd();
   emit("submit", {
-    id: newId,
     ...detail.value,
+    id: newId || detail.value.id,
   });
   emit("update:show", false);
 };

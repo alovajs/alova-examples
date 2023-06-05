@@ -18,10 +18,12 @@
           v-model:value="studentName"
           placeholder="input student name"
           :loading="loading"
+          clearable
         ></n-input>
         <n-select
           placeholder="select class"
           v-model:value="clsName"
+          clearable
           :style="{ width: '33%' }"
           :options="[
             {
@@ -39,7 +41,10 @@
           ]"
         />
       </n-input-group>
-      <n-button type="primary" @click="editItem()">Add item</n-button>
+      <n-space>
+        <n-button type="primary" @click="editItem()">Add item</n-button>
+        <n-button type="primary" @click="reload">reload data</n-button>
+      </n-space>
     </n-space>
 
     <n-data-table

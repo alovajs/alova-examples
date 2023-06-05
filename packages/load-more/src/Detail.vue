@@ -43,8 +43,8 @@
 </template>
 
 <script setup>
-import { watchEffect, ref } from "vue";
-import { useRequest, updateState } from "alova";
+import { watchEffect } from "vue";
+import { useRequest } from "alova";
 import { queryStudentDetail, editStudent } from "./api.js";
 import { NSpin, NButton, NSpace, NModal, NInput, NSelect } from "naive-ui";
 
@@ -90,8 +90,8 @@ const submitStudent = async () => {
   }
   const newId = await sendStudentAdd();
   emit("submit", {
-    id: newId,
     ...detail.value,
+    id: newId || detail.value.id,
   });
   emit("update:show", false);
 };

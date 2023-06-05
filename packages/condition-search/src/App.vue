@@ -3,12 +3,14 @@
     <n-input
       :style="{ width: '40%' }"
       v-model:value="studentName"
+      clearable
       placeholder="input student name"
     ></n-input>
     <n-select
       placeholder="select class"
       v-model:value="clsName"
       :style="{ width: '33%' }"
+      clearable
       :options="[
         {
           label: 'class 1',

@@ -40,7 +40,10 @@
           ]"
         />
       </n-input-group>
-      <n-button type="primary" @click="editItem()">Add item</n-button>
+      <n-space>
+        <n-button type="primary" @click="editItem()">Add item</n-button>
+        <n-button type="primary" @click="reload">reload data</n-button>
+      </n-space>
     </n-space>
 
     <n-data-table
@@ -98,7 +101,12 @@
     >
     </n-data-table>
     <n-space justify="space-between" align="center">
-      <n-pagination v-model:page="page" :page-count="pageCount" />
+      <n-pagination
+        v-model:page="page"
+        v-model:page-size="pageSize"
+        :page-count="pageCount"
+        show-size-picker
+        :page-sizes="[10, 20]" />
       <span>Total: {{ total }}</span>
     </n-space>
   </n-space>
@@ -133,7 +141,6 @@ const selectedId = ref();
 const {
   loading,
   data: students,
-  isLastPage,
   page,
   total,
   pageSize,
@@ -147,7 +154,6 @@ const {
     queryStudents(page, pageSize, studentName.value || "", clsName.value || ""),
   {
     watchingStates: [studentName, clsName],
-    initialPageSize: 5,
     initialData: { total: 0, list: [] },
     debounce: [800],
     total: (res) => res.total,

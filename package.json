@@ -18,7 +18,8 @@
     "dev:ic": "npm run dev --workspace indexeddb-cache",
     "dev:rh": "npm run dev --workspace retriable-hook",
     "dev:fh": "npm run dev --workspace form-hook",
-    "dev:adm": "npm run dev --workspace action-delegation-middleware"
+    "dev:adm": "npm run dev --workspace action-delegation-middleware",
+    "dev:cs2": "npm run dev --workspace captcha-send"
   },
   "workspaces": [
     "packages/*"

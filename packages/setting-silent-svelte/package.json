@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@alova/mock": "^1.4.1",
-    "@alova/scene-svelte": "^1.1.0-alpha.1",
+    "@alova/scene-svelte": "^1.1.0-alpha.4",
     "@smui/button": "^7.0.0-beta.0",
     "@smui/circular-progress": "^7.0.0-beta.0",
     "@smui/list": "^7.0.0-beta.0",
