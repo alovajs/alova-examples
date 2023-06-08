@@ -2,7 +2,7 @@ import { accessAction } from "@alova/scene-react";
 import { Button, Paper, TextField, Typography } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 import { useRequest } from "alova";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { removeStudent } from "../api";
 
 const wrapperStyle = {
