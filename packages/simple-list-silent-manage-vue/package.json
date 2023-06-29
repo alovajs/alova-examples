@@ -11,7 +11,7 @@
   "dependencies": {
     "@alova/mock": "^1.4.1",
     "@alova/scene-vue": "^1.1.0-alpha.4",
-    "alova": "^2.6.0",
+    "alova": "^2.8.0",
     "naive-ui": "^2.33.5",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
