@@ -9,14 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@alova/mock": "^1.4.1",
-    "@alova/scene-react": "^1.1.0-alpha.4",
+    "@alova/mock": "^1.5.0",
+    "@alova/scene-react": "^1.1.5",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.6",
     "@mui/x-date-pickers": "^6.5.0",
-    "alova": "^2.8.0",
+    "alova": "^2.9.2",
     "clsx": "^1.2.1",
     "notistack": "^2.0.8",
     "react": "^18.2.0",

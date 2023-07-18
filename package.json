@@ -19,7 +19,8 @@
     "dev:rh": "npm run dev --workspace retriable-hook",
     "dev:fh": "npm run dev --workspace form-hook",
     "dev:adm": "npm run dev --workspace action-delegation-middleware",
-    "dev:cs2": "npm run dev --workspace captcha-send"
+    "dev:cs2": "npm run dev --workspace captcha-send",
+    "dev:us": "npm run dev --workspace update-state"
   },
   "workspaces": [
     "packages/*"
