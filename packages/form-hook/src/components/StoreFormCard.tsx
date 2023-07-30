@@ -61,7 +61,7 @@ export default function StoreFormCard() {
       }
     },
     store: true,
-    resetAfterSubmit: true
+    resetAfterSubmiting: true
   });
   onSuccess(({ data }) => {
     alert('提交成功; 提交数据为：' + JSON.stringify(data))

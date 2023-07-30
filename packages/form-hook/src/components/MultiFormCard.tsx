@@ -53,7 +53,7 @@ export default function MultiFormCard() {
     }), {
     id: 'multi-form-id',
     initialForm,
-    resetAfterSubmit: true
+    resetAfterSubmiting: true
   });
   onSuccess(({ data }) => {
     alert('提交成功; 提交数据为：' + JSON.stringify(data))
