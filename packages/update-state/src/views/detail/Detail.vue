@@ -29,7 +29,7 @@ import { ref, watchEffect } from "vue";
 import { editTodo, todoDetail } from "../../api.js";
 import { NSpin, NButton, NInput, NTimePicker, NForm, NFormItem } from "naive-ui";
 import { useRoute, useRouter } from "vue-router";
-import { setCache, useRequest } from "alova";
+import { setCache, updateState, useRequest } from "alova";
 
 const route = useRoute();
 const todoId = route.query.id;
@@ -66,7 +66,7 @@ onSubmitSuccess(({ data }) => {
   };
 
   // 列表页已被销毁，通过更新缓存达到同样的效果
-  setCache({
+  updateState({
     name: 'todoList',
     filter: (_, index, methods) => index === methods.length - 1
   }, todoList => {
