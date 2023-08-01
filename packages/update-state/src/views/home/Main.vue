@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, h } from "vue";
+import { ref, h, onUnmounted } from "vue";
 import { queryTodo, removeTodo } from "../../api.js";
 import DetailModal from "./DetailModal.vue";
 import {
@@ -35,6 +35,10 @@ import {
 } from "naive-ui";
 import { useRouter } from "vue-router";
 import { useRequest } from "alova";
+
+onUnmounted(() => {
+  console.log('unmounted')
+})
 
 const router = useRouter();
 const tableColumns = [
