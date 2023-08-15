@@ -1,5 +1,5 @@
 {
-  "name": "update-state",
+  "name": "serial-request",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,18 +8,16 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@alova/mock": "^1.5.0",
-    "@alova/scene-vue": "^1.1.8",
-    "alova": "^2.10.1",
-    "naive-ui": "^2.33.5",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
-  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "prettier": "^2.7.1",
     "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "@alova/mock": "^1.5.0",
+    "alova": "^2.10.1",
+    "naive-ui": "2.33.5",
+    "vue": "^3.2.41"
   },
   "keywords": [],
   "description": ""

@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@alova/mock": "^1.5.0",
-    "@alova/scene-vue": "^1.1.4",
-    "alova": "^2.9.2",
+    "@alova/scene-vue": "^1.1.8",
+    "alova": "^2.10.1",
     "naive-ui": "2.33.5",
     "vue": "^3.2.47"
   },
