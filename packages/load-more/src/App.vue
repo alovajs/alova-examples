@@ -78,7 +78,7 @@
                       strong: true,
                       tertiary: true,
                       size: 'small',
-                      onClick: () => editItem(row.id),
+                      onClick: () => editItem(row),
                     },
                     { default: () => 'Edit' }
                   ),
@@ -88,7 +88,7 @@
                       strong: true,
                       size: 'small',
                       type: 'error',
-                      onClick: () => removeSend(row.id),
+                      onClick: () => removeSend(row),
                     },
                     { default: () => 'Remove' }
                   ),
@@ -105,7 +105,7 @@
 
   <detail
     v-model:show="detailVisible"
-    :id="selectedId"
+    :id="selectedItem.id"
     @submit="updateList"
   ></detail>
 </template>
@@ -129,7 +129,6 @@ import { useRequest } from "alova";
 const studentName = ref("");
 const clsName = ref(null);
 const detailVisible = ref(false);
-const selectedId = ref();
 const {
   loading,
   data: students,
@@ -152,31 +151,27 @@ const {
   }
 );
 
-const editItem = (id) => {
+const editItem = (row) => {
   detailVisible.value = true;
-  selectedId.value = id;
+  selectedItem.value = row;
 };
 
 const { send: removeSend, onSuccess: onRemoveSuccess } = useRequest(
-  (id) => removeStudent(id),
+  ({ id }) => removeStudent(id),
   {
     immediate: false
   }
 );
 onRemoveSuccess(({
-  sendArgs: [removeId]
+  sendArgs: [row]
 }) => {
-  const index = students.value.findIndex((s) => s.id === removeId);
-  remove(index);
+  remove(row);
 });
+
+const selectedItem = ref({});
 const updateList = (detail) => {
-  if (selectedId.value) {
-    const refreshPage =
-      Math.floor(
-        students.value.findIndex(({ id }) => id === selectedId.value) /
-          pageSize.value
-      ) + 1;
-    refresh(refreshPage);
+  if (selectedItem.value) {
+    refresh(selectedItem.value);
   } else {
     insert(detail);
     nextTick(() => {
