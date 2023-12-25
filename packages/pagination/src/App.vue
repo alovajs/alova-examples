@@ -87,7 +87,7 @@
                       strong: true,
                       size: 'small',
                       type: 'error',
-                      onClick: () => removeSend(row.id),
+                      onClick: () => removeSend(row),
                     },
                     { default: () => 'Remove' }
                   ),
@@ -167,26 +167,21 @@ const editItem = (id) => {
 };
 
 const { send: removeSend, onSuccess: onRemoveSuccess } = useRequest(
-  (id) => removeStudent(id),
+  ({ id }) => removeStudent(id),
   {
     immediate: false
   }
 );
 onRemoveSuccess(({
-  sendArgs: [removeId]
+  sendArgs: [row]
 }) => {
-  const index = students.value.findIndex((s) => s.id === removeId);
-  remove(index);
+  remove(row);
 });
 const updateList = (detail) => {
   if (selectedId.value) {
     refresh(page.value);
   } else {
-    insert(detail, {
-      onBefore: () => {
-        page.value = 1;
-      },
-    });
+    insert(detail);
   }
 };
 </script>
