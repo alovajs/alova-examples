@@ -108,7 +108,11 @@ const allStudents = Array.from({ length: 3 })
     {
       name: "William",
       cls: "class 1"
-    }
+    },
+    {
+      name: "jason",
+      cls: "class 2"
+    },
   ])
   .flat()
   .map((item, i) => ({
