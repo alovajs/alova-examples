@@ -148,7 +148,7 @@ const {
   remove,
   insert,
   refresh,
-  reload,
+  reload
 } = usePagination(
   (page, pageSize) =>
     queryStudents(page, pageSize, studentName.value || "", clsName.value || ""),
@@ -156,6 +156,7 @@ const {
     watchingStates: [studentName, clsName],
     initialData: { total: 0, list: [] },
     debounce: [800],
+    abortLast: true,
     total: (res) => res.total,
     data: (res) => res.list,
   }
