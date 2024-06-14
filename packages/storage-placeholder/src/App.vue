@@ -9,30 +9,30 @@
 
     <n-alert title="Tips" type="info">
       <div>
-        <span class="link" @click="reloadPage">Reload page</span>
+        <n-button class="link" @click="reloadPage">Reload page</n-button>
         <span>, you can see the old data instead of 'Loading...'</span>
       </div>
       <div>
-        <span class="link" @click="invalidateOldData"
-          >Invalidate the data of placeholder</span
-        >
+        <n-button class="link" @click="invalidateOldData"
+          >Invalidate the data of placeholder</n-button>
         <span> and reload page, you can see 'Loading...' again.</span>
       </div>
+      <n-button @click="send">send</n-button>
     </n-alert>
   </n-space>
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { queryRandom } from './api.js';
 import { useRequest, invalidateCache } from 'alova';
-import { NSpin, NTag, NSpace, NAlert } from 'naive-ui';
+import { NSpin, NTag, NSpace, NAlert, NButton } from 'naive-ui';
 
 const methodOfQueryRandom = queryRandom();
 const {
   loading,
   error,
   data: randomNumbers,
+  send
 } = useRequest(methodOfQueryRandom, {
   initialData: [],
 });
